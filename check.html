@@ -2,7 +2,8 @@
 <html>
   <head>
 		<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
-    <title>Checklist Item</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<title>Checklist Item</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -18,9 +19,14 @@
 			//saving us those sweet, sweet CPU cycles.
 			$.getJSON( "./get.php?parent=3", function(result) {
 				data = result;
-			});
+			}).done(function() {showItem()});
 			
 			function showItem() {
+				if (data.len == 0) {
+					$("#step").text(step.data);
+					return;
+				}
+				
 				var step = data[0];
 				console.log(step);
 				$("#step").text(step.data);
@@ -35,17 +41,24 @@
 					completed.push(data[0].pk)
 					console.log(completed);
 				}
-				if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
+			
+			if (data.len == 0) {
+				$("#step").text(step.data);
+				return;
+			}
+		
+			//This may not be the best way to do this,
+			//Even if it is, we need a way to handle call stack exceded
+			if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
 					nextItem("skip");
-				}
+				}	
 				showItem();
 			}
-			
-			
 		</script>
-		<div id="step"></div>
-		<button onClick="showItem();">Show Current Item</button>
-		<button onClick="nextItem();">Go to next item</button>
-		<button onClick="nextItem('skip');">Go to next item</button>
+		<div class='container'>
+			<div class='container' id="step"></div>
+			<button class='btn btn-xl btn-success' onClick="nextItem();">Compleded This Item</button>
+			<button class='btn btn-xl btn-warning' onClick="nextItem('skip');">Skip This Item</button>
+		</div>
   </body>
 </html>
