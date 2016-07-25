@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <title>Checklist Item</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+		<script>
+			//All of our checklist data
+			var data;
+			
+			//An array of every step we completed
+			var completed = [];
+
+			//We fetch all the data, then the rest of the work is on the client,
+			//saving us those sweet, sweet CPU cycles.
+			$.getJSON( "./get.php?parent=3", function(result) {
+				data = result;
+			});
+			
+			function showItem() {
+				var step = data[0];
+				console.log(step);
+				$("#step").text(step.data);
+			}
+			
+			function nextItem(action) {
+				var oldItem = data.shift();
+				if (action == "skip") {
+					data.push(oldItem);
+				}
+				else {
+					completed.push(data[0].pk)
+					console.log(completed);
+				}
+				if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
+					nextItem("skip");
+				}
+				showItem();
+			}
+			
+			
+		</script>
+		<div id="step"></div>
+		<button onClick="showItem();">Show Current Item</button>
+		<button onClick="nextItem();">Go to next item</button>
+		<button onClick="nextItem('skip');">Go to next item</button>
+  </body>
+</html>

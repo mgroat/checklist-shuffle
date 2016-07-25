@@ -8,4 +8,4 @@ $sql = pg_prepare($conn,"SHOW",'SELECT * FROM "checkItem" WHERE parent = $1');
 //$sql = pg_prepare($conn,"SHOW","SELECT * FROM pg_catalog.pg_tables");
 $results = pg_execute($conn,"SHOW",[$_GET['parent']]);
 $results = json_encode(pg_fetch_all($results));
-print_r($results);
+echo $results;
