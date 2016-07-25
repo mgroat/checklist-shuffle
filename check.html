@@ -33,13 +33,15 @@
 			}
 			
 			function nextItem(action) {
+				//We MUST do this before re-arranging the list 
+				if (action != "skip") {
+					completed.push(data[0].pk)
+					console.log(completed);
+				}
+				
 				var oldItem = data.shift();
 				if (action == "skip") {
 					data.push(oldItem);
-				}
-				else {
-					completed.push(data[0].pk)
-					console.log(completed);
 				}
 			
 			if (data.len == 0) {
@@ -49,11 +51,28 @@
 		
 			//This may not be the best way to do this,
 			//Even if it is, we need a way to handle call stack exceded
-			if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
+			/*if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
 					nextItem("skip");
 				}	
 				showItem();
+			}*/
+			while(true) {
+				if(data[0].depend == null) {
+					console.log("This item depends on nothing");
+					break;
+				}
+				else if(completed.indexOf(data[0].depend) != -1) {
+					console.log("Item " + data[0].pk + " satisfied dependency " + data[0].depend);
+					break;
+				}
+				else {
+					console.log("Item " + data[0].pk + " UNsatisfied dependency " + data[0].depend);
+					var oldItem = data.shift();
+					data.push(oldItem);
+				}
 			}
+			showItem();
+		}
 		</script>
 		<div class='container'>
 			<div class='container' id="step"></div>
