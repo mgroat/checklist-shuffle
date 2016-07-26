@@ -6,8 +6,6 @@
 		<title>Checklist Item</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
 		<script>
 			//All of our checklist data
 			var data;
@@ -44,8 +42,9 @@
 					data.push(oldItem);
 				}
 			
-			if (data.len == 0) {
-				$("#step").text(step.data);
+			console.log("Checking to see if we're done...");
+			if (data.length == 0) {
+				$("#step").text("We're all done!");
 				return;
 			}
 		
@@ -74,10 +73,24 @@
 			showItem();
 		}
 		</script>
-		<div class='container'>
-			<div class='container' id="step"></div>
-			<button class='btn btn-xl btn-success' onClick="nextItem();">Compleded This Item</button>
-			<button class='btn btn-xl btn-warning' onClick="nextItem('skip');">Skip This Item</button>
+		<style>
+			.btn {
+					font-size: 40px;
+			}
+		</style>
+  </head>
+  <body>
+
+		
+		<div class='container-fluid'>
+			<div class='jumbotron center'><center><h1 id='step' /></center></div>
+			<div class='row center'>
+				<button class='col-xs-12 btn btn-xl btn-success' onClick="nextItem();">Completed This Item</button>
+			</div>
+			<div class='row center'><h1>&nbsp</h1></div>
+			<div class='row center'>
+				<button class='col-md-12 btn btn-large btn-warning' onClick="nextItem('skip');">Skip This Item</button>
+			</div>
 		</div>
   </body>
 </html>
