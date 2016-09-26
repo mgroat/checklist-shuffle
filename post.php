@@ -1,4 +1,6 @@
 <?php
+if(empty($_POST))
+	die("You should only come to this page when creating a new checklist");
 $dbUrl = getenv('DATABASE_URL');
 if(file_exists('./conf.txt')) //This will exist on our test server, not on Heroku
     $dbUrl = file_get_contents("./conf.txt");
@@ -9,7 +11,6 @@ $vals = [$_POST['description'],0];
 $sql = pg_prepare($conn,"INSERT-MASTER",$stmt);
 $results = pg_execute($conn,"INSERT-MASTER",$vals);
 $parent = pg_fetch_all($results)[0]['pk'];
-echo $parent;
 
 $stmt = 'INSERT INTO "checkItem" (data, parent, depend, item) VALUES ($1, $2, $3, $4)';
 $sql = pg_prepare($conn,"INSERT-DETAIL",$stmt);
@@ -25,3 +26,4 @@ $url = $_SERVER['HTTP_ORIGIN']."/check.html?$parent";
 ?>
 
 <center><h1>Your super-secret URL is <a href="<?=$url?>"><?=$url?></a></h1></center>
+<center><h2>Bookmark the above URL to come back to your checklist at any time</h2></center>

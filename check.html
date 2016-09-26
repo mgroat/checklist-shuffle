@@ -48,16 +48,10 @@
 			console.log("Checking to see if we're done...");
 			if (data.length == 0) {
 				$("#step").text("We're all done!");
+				$(".btn").hide();
 				return;
 			}
 		
-			//This may not be the best way to do this,
-			//Even if it is, we need a way to handle call stack exceded
-			/*if (data[0].depend != null && completed.indexOf(data[0].depend) == -1) {
-					nextItem("skip");
-				}	
-				showItem();
-			}*/
 			while(true) {
 				if(data[0].depend == null) {
 					console.log("This item depends on nothing");
