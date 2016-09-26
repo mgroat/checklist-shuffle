@@ -10,12 +10,15 @@
 			//All of our checklist data
 			var data;
 			
+			//What checklist are we reading?
+			 var checklistNumber = window.location.href.slice(window.location.href.indexOf('?') + 1)
+			 
 			//An array of every step we completed
 			var completed = [];
 
 			//We fetch all the data, then the rest of the work is on the client,
 			//saving us those sweet, sweet CPU cycles.
-			$.getJSON( "./get.php?parent=3", function(result) {
+			$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
 				data = result;
 			}).done(function() {showItem()});
 			
@@ -33,7 +36,7 @@
 			function nextItem(action) {
 				//We MUST do this before re-arranging the list 
 				if (action != "skip") {
-					completed.push(data[0].pk)
+					completed.push(data[0].item)
 					console.log(completed);
 				}
 				
@@ -61,11 +64,11 @@
 					break;
 				}
 				else if(completed.indexOf(data[0].depend) != -1) {
-					console.log("Item " + data[0].pk + " satisfied dependency " + data[0].depend);
+					console.log("Item " + data[0].item + " satisfied dependency " + data[0].depend);
 					break;
 				}
 				else {
-					console.log("Item " + data[0].pk + " UNsatisfied dependency " + data[0].depend);
+					console.log("Item " + data[0].item + " UNsatisfied dependency " + data[0].depend);
 					var oldItem = data.shift();
 					data.push(oldItem);
 				}
