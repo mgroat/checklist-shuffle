@@ -1,5 +1,4 @@
 {
     "require": {
-        "paragonie/random_compat": "^2.0"
     }
 }
