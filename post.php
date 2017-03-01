@@ -5,7 +5,8 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
 	$str = '';
 	$max = mb_strlen($keyspace, '8bit') - 1;
 	for ($i = 0; $i < $length; ++$i) {
-		$str .= $keyspace[random_int(0, $max)];
+		//$str .= $keyspace[random_int(0, $max)];//This is better crypto, but requires php7
+		$str .= $keyspace[rand(0, strlen($keyspace) - 1)];
 	}
 	return $str;
 }
