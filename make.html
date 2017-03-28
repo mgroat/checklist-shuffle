@@ -17,18 +17,37 @@
 					numFields++;
 				}
 			}
+			function fillLines(data) {
+				console.log(data);
+				console.log(data.length);
+				for(var i = 0; i < data.length; i++) {
+					var inputNumber = i+1;
+					addLine();
+					console.log(data[i]["data"]);
+					$('#detail-'+(inputNumber)).val(data[i]["data"]);
+					$('#depend-'+(inputNumber)).val(data[i]["depend"]);
+				}
+			}
 			$(document).ready(function() {
 				addLine();
+				queryPos = window.location.href.indexOf('?');
+				if (queryPos > -1) {
+					var checklistNumber = window.location.href.slice(queryPos + 1);
+					$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
+						data = result;
+				}).done(function() {fillLines(data)});
+				}
 				$('#depend-1').focus();
 			})
+			
 </script>
   </head>
   <body>
 		<form action="post.php" method="post">
-			<b>Briefly Describe your checklist:</b> <input type="text" name="description"><br>
+			<!--<b>Briefly Describe your checklist:</b> <input type="text" name="description"><br>-->
 			<span id="inputFields"></span>
 			<button type="submit">Submit</button>
 		</form>
-		<b>Warning, this project is in an unfinished state. The database may be erased at any time, and privacy is non-existant</b>
+		<b>Warning, this project is in an unfinished state. The database may be erased at any time.</b>
   </body>
 </html>

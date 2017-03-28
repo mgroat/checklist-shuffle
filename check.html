@@ -12,16 +12,18 @@
 			
 			//What checklist are we reading?
 			 var checklistNumber = window.location.href.slice(window.location.href.indexOf('?') + 1)
-			 
+			
 			//An array of every step we completed
 			var completed = [];
 
-			//We fetch all the data, then the rest of the work is on the client,
-			//saving us those sweet, sweet CPU cycles.
-			$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
-				data = result;
-			}).done(function() {showItem()});
-			
+			$(document).ready(function() {
+				$("#clone").attr("href","make.html?"+checklistNumber);
+				//We fetch all the data, then the rest of the work is on the client,
+				//saving us those sweet, sweet CPU cycles.
+				$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
+					data = result;
+				}).done(function() {showItem()});
+			})
 			function showItem() {
 				if (data.len == 0) {
 					$("#step").text(step.data);
@@ -89,5 +91,7 @@
 				<button class='btn btn-block btn-warning' onClick="nextItem('skip');">Do This Later</button>
 			</div>
 		</div>
+		<div class="row center" style="height:50px;"></div>
+		<a href="" id="clone">Make a clone of this list</a>
   </body>
 </html>
