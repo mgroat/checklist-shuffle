@@ -1,11 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
 //http://stackoverflow.com/a/31107425
 //Generate a secure random string
 function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_') {
 	$str = '';
-	$max = mb_strlen($keyspace, '8bit') - 1;
+	//$max = mb_strlen($keyspace, '8bit') - 1;
 	for ($i = 0; $i < $length; ++$i) {
 		//$str .= $keyspace[random_int(0, $max)];//This is better crypto, but requires php7
 		$str .= $keyspace[rand(0, strlen($keyspace) - 1)];
