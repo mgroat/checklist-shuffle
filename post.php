@@ -20,7 +20,6 @@ if(empty($_POST))
 
 $conn = pgConnect();
 $key = random_str(20);
-echo $key;
 $stmt = 'INSERT INTO checkMaster (description, owner, pk) VALUES ($1,$2,$3) RETURNING pk';
 $vals = ["Checklist",0,$key];
 $results = pgQuery($conn,$stmt,$vals);
