@@ -26,13 +26,13 @@
 			})
 			function showItem() {
 				if (data.len == 0) {
-					$("#step").text(step.data);
+					$("#step").html(step.data);
 					return;
 				}
 				
 				var step = data[0];
 				console.log(step);
-				$("#step").text(step.data);
+				$("#step").html(step.data);
 			}
 			
 			function nextItem(action) {
