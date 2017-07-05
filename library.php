@@ -20,3 +20,8 @@ function pgConnect() {
 		. "dbname=".ltrim($dbopts['path'],'/')." user={$dbopts['user']} password={$dbopts['pass']}"); 
 	return $conn; 
 }
+
+/** This key, combined with the url of the checklist and hashed, forms an 'edit password' */
+function secretKey() {
+	return getenv('SECRET_KEY');
+}

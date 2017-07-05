@@ -17,9 +17,8 @@
 			var completed = [];
 
 			$(document).ready(function() {
-				$("#clone").attr("href","make.html?"+checklistNumber);
-				//We fetch all the data, then the rest of the work is on the client,
-				//saving us those sweet, sweet CPU cycles.
+				$("#clone").attr("href","make.php?parent="+checklistNumber);
+				//We fetch all the data, then the rest of the work is on the client
 				$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
 					data = result;
 				}).done(function() {showItem()});
