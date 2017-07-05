@@ -36,6 +36,7 @@
 					$.getJSON( "./get.php?"+checklistNumber, function(result) {
 						data = result['item'];
 						$("#description").val(result['master']['description']);
+						document.title = result['master']['description'];
 				}).done(function() {fillLines(data)});
 				}
 				$('#depend-1').focus();
