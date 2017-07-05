@@ -34,7 +34,8 @@
 				if (queryPos > -1) {
 					var checklistNumber = window.location.href.slice(queryPos + 1);
 					$.getJSON( "./get.php?"+checklistNumber, function(result) {
-						data = result;
+						data = result['item'];
+						$("#description").val(result['master']['description']);
 				}).done(function() {fillLines(data)});
 				}
 				$('#depend-1').focus();
@@ -48,7 +49,7 @@
 			<input type="hidden" name="parent" value="<?=$_GET['parent']?>">
 			<input type="hidden" name="editPass" value="<?=$_GET['editPass']?>">
 			<?php endif;?>
-			<!--<b>Briefly Describe your checklist:</b> <input type="text" name="description"><br>-->
+			<b>Give your checklist a name:</b> <input type="text" id="description" name="description"><br>
 			<span id="inputFields"></span>
 			<button type="submit">Submit</button>
 		</form>

@@ -20,7 +20,8 @@
 				$("#clone").attr("href","make.php?parent="+checklistNumber);
 				//We fetch all the data, then the rest of the work is on the client
 				$.getJSON( "./get.php?parent="+checklistNumber, function(result) {
-					data = result;
+					data = result['item'];
+					document.title = result['master']['description'];
 				}).done(function() {showItem()});
 			})
 			function showItem() {

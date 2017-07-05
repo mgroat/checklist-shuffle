@@ -42,7 +42,7 @@ else {
 }
 
 $stmt = 'INSERT INTO checkMaster (description, owner, pk, editPass) VALUES ($1,$2,$3, $4) RETURNING pk';
-$vals = ["Checklist",0,$key,$editPass];
+$vals = [$_POST['description'],0,$key,$editPass];
 $results = pgQuery($conn,$stmt,$vals);
 $parent = $results[0]['pk'];
 
